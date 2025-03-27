@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { getMovieDetails, clearSelectedMovie } from '../store/moviesSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { getMovieDetails, clearSelectedMovie } from '../../store/moviesSlice';
 import './MovieDetails.scss';
 
 const MovieDetails: React.FC = () => {

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { searchMovies, setSearchQuery, setYear, setType } from '../store/moviesSlice';
-import { Movie } from '../types/movie';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { searchMovies, setSearchQuery, setYear, setType } from '../../store/moviesSlice';
+import { Movie } from '../../types/movie';
 import './MovieList.scss';
 
 const MovieList: React.FC = () => {

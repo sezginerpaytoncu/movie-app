@@ -2,8 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
-import MovieList from './components/MovieList';
-import MovieDetails from './components/MovieDetails';
+import MovieList from './components/movie-list/MovieList';
+import MovieDetails from './components/movie-details/MovieDetails';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 
