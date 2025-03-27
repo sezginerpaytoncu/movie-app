@@ -32,52 +32,62 @@ const MovieList: React.FC = () => {
   if (error) return <div className="error">{error}</div>;
 
   return (
-    <div className="movie-list">
-      <form onSubmit={handleSearch} className="search-form">
-        <input
-          type="text"
-          name="search"
-          defaultValue={searchQuery}
-          placeholder="Search movies..."
-          className="form-control"
-        />
-        <input
-          type="text"
-          name="year"
-          defaultValue={year}
-          placeholder="Year (optional)"
-          className="form-control"
-        />
-        <select name="type" defaultValue={type} className="form-control">
-          <option value="">All Types</option>
-          <option value="movie">Movies</option>
-          <option value="series">TV Series</option>
-          <option value="episode">TV Episodes</option>
-        </select>
-        <button type="submit" className="btn btn-primary">
-          Search
-        </button>
+    <div className="container py-4">
+      <form onSubmit={handleSearch} className="row g-3 mb-4">
+        <div className="col-md-4">
+          <input
+            type="text"
+            name="search"
+            defaultValue={searchQuery}
+            placeholder="Search movies..."
+            className="form-control"
+          />
+        </div>
+        <div className="col-md-3">
+          <input
+            type="text"
+            name="year"
+            defaultValue={year}
+            placeholder="Year (optional)"
+            className="form-control"
+          />
+        </div>
+        <div className="col-md-3">
+          <select name="type" defaultValue={type} className="form-select">
+            <option value="">All Types</option>
+            <option value="movie">Movies</option>
+            <option value="series">TV Series</option>
+            <option value="episode">TV Episodes</option>
+          </select>
+        </div>
+        <div className="col-md-2">
+          <button type="submit" className="btn btn-primary w-100">
+            Search
+          </button>
+        </div>
       </form>
 
-      <div className="movie-grid">
+      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
         {movies.map((movie: Movie) => (
-          <div
-            key={movie.imdbID}
-            className="movie-card"
-            onClick={() => handleMovieClick(movie.imdbID)}
-          >
-            <img src={movie.Poster} alt={movie.Title} className="movie-poster" />
-            <div className="movie-info">
-              <h3>{movie.Title}</h3>
-              <p>Year: {movie.Year}</p>
-              <p>IMDb ID: {movie.imdbID}</p>
+          <div key={movie.imdbID} className="col">
+            <div className="card h-100" onClick={() => handleMovieClick(movie.imdbID)}>
+              <img src={movie.Poster} alt={movie.Title} className="card-img-top" />
+              <div className="card-body">
+                <h5 className="card-title">{movie.Title}</h5>
+                <p className="card-text">
+                  <small className="text-muted">Year: {movie.Year}</small>
+                </p>
+                <p className="card-text">
+                  <small className="text-muted">IMDb ID: {movie.imdbID}</small>
+                </p>
+              </div>
             </div>
           </div>
         ))}
       </div>
 
       {totalResults > 0 && (
-        <div className="pagination">
+        <div className="d-flex justify-content-center align-items-center gap-3 mt-4">
           <button
             className="btn btn-secondary"
             disabled={currentPage === 1}
@@ -85,7 +95,7 @@ const MovieList: React.FC = () => {
           >
             Previous
           </button>
-          <span className="page-info">
+          <span className="text-muted">
             Page {currentPage} of {Math.ceil(totalResults / 10)}
           </span>
           <button
