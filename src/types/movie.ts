@@ -44,8 +44,8 @@ export interface MovieState {
 }
 
 export interface SearchParams {
-  s: string;
-  y?: string;
+  searchTerm: string;
+  yearRelease?: string;
   type?: string;
   page?: number;
 } 

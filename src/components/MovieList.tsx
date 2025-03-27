@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { searchMovies, setSearchQuery, setYear, setType } from '../store/movieSlice';
+import { searchMovies, setSearchQuery, setYear, setType } from '../store/moviesSlice';
 import { Movie } from '../types/movie';
 import './MovieList.scss';
 
@@ -13,7 +13,7 @@ const MovieList: React.FC = () => {
   );
 
   useEffect(() => {
-    dispatch(searchMovies({ s: searchQuery, y: year, type, page: currentPage }));
+    dispatch(searchMovies({ searchTerm: searchQuery, yearRelease: year, type, page: currentPage }));
   }, [dispatch, searchQuery, year, type, currentPage]);
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
@@ -81,7 +81,7 @@ const MovieList: React.FC = () => {
           <button
             className="btn btn-secondary"
             disabled={currentPage === 1}
-            onClick={() => dispatch(searchMovies({ s: searchQuery, y: year, type, page: currentPage - 1 }))}
+            onClick={() => dispatch(searchMovies({ searchTerm: searchQuery, yearRelease: year, type, page: currentPage - 1 }))}
           >
             Previous
           </button>
@@ -91,7 +91,7 @@ const MovieList: React.FC = () => {
           <button
             className="btn btn-secondary"
             disabled={currentPage >= Math.ceil(totalResults / 10)}
-            onClick={() => dispatch(searchMovies({ s: searchQuery, y: year, type, page: currentPage + 1 }))}
+            onClick={() => dispatch(searchMovies({ searchTerm: searchQuery, yearRelease: year, type, page: currentPage + 1 }))}
           >
             Next
           </button>

@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { MovieState, SearchParams } from '../types/movie';
-
-const API_KEY = process.env.REACT_APP_OMDB_API_KEY;
-const BASE_URL = 'https://www.omdbapi.com/';
+import { searchMovies as searchMoviesService, getMovieDetails as getMovieDetailsService } from '../services/movieService';
 
 const initialState: MovieState = {
   movies: [],
@@ -18,47 +16,19 @@ const initialState: MovieState = {
 
 export const searchMovies = createAsyncThunk(
   'movies/searchMovies',
-  async ({ s, y, type, page = 1 }: SearchParams) => {
-    const params = new URLSearchParams({
-      apikey: API_KEY || '',
-      s,
-      page: page.toString(),
-      ...(y && { y }),
-      ...(type && { type }),
-    });
-
-    const response = await fetch(`${BASE_URL}?${params}`);
-    const data = await response.json();
-
-    if (data.Response === 'False') {
-      throw new Error(data.Error);
-    }
-
-    return data;
+  async (params: SearchParams) => {
+    return await searchMoviesService(params);
   }
 );
 
 export const getMovieDetails = createAsyncThunk(
   'movies/getMovieDetails',
   async (imdbID: string) => {
-    const params = new URLSearchParams({
-      apikey: API_KEY || '',
-      i: imdbID,
-      plot: 'full',
-    });
-
-    const response = await fetch(`${BASE_URL}?${params}`);
-    const data = await response.json();
-
-    if (data.Response === 'False') {
-      throw new Error(data.Error);
-    }
-
-    return data;
+    return await getMovieDetailsService(imdbID);
   }
 );
 
-const movieSlice = createSlice({
+const moviesSlice = createSlice({
   name: 'movies',
   initialState,
   reducers: {
@@ -106,5 +76,5 @@ const movieSlice = createSlice({
   },
 });
 
-export const { setSearchQuery, setYear, setType, clearSelectedMovie } = movieSlice.actions;
-export default movieSlice.reducer; 
+export const { setSearchQuery, setYear, setType, clearSelectedMovie } = moviesSlice.actions;
+export default moviesSlice.reducer; 
