@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { searchMovies, setSearchQuery, setYear, setType } from '../../store/moviesSlice';
+import { searchMovies, setSearchParams } from '../../store/moviesSlice';
 import { Movie } from '../../types/movie';
 import './MovieList.scss';
 
@@ -19,9 +19,11 @@ const MovieList: React.FC = () => {
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    dispatch(setSearchQuery(formData.get('search') as string));
-    dispatch(setYear(formData.get('year') as string));
-    dispatch(setType(formData.get('type') as string));
+    const newSearchQuery = formData.get('search') as string;
+    const newYear = formData.get('year') as string;
+    const newType = formData.get('type') as string;
+
+    dispatch(setSearchParams({ searchQuery: newSearchQuery, year: newYear, type: newType }));
   };
 
   const handleMovieClick = (imdbID: string) => {

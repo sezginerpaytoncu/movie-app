@@ -32,14 +32,11 @@ const moviesSlice = createSlice({
   name: 'movies',
   initialState,
   reducers: {
-    setSearchQuery: (state, action) => {
-      state.searchQuery = action.payload;
-    },
-    setYear: (state, action) => {
-      state.year = action.payload;
-    },
-    setType: (state, action) => {
-      state.type = action.payload;
+    setSearchParams: (state, action) => {
+      const { searchQuery, year, type } = action.payload;
+      state.searchQuery = searchQuery;
+      state.year = year;
+      state.type = type;
     },
     clearSelectedMovie: (state) => {
       state.selectedMovie = null;
@@ -76,5 +73,5 @@ const moviesSlice = createSlice({
   },
 });
 
-export const { setSearchQuery, setYear, setType, clearSelectedMovie } = moviesSlice.actions;
+export const { setSearchParams, clearSelectedMovie } = moviesSlice.actions;
 export default moviesSlice.reducer; 
